@@ -1,0 +1,136 @@
+body {
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.demo-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 6rem 2rem 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.webcam-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f1f1f;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 209, 178, 0.1);
+}
+
+.webcam-feed {
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-group button,
+.add-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: #00d1b2;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+}
+
+.btn-group button:hover,
+.add-btn:hover {
+  background-color: #00b89c;
+}
+
+.controls-side {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 1rem;
+}
+
+.captured-preview {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 209, 178, 0.2);
+}
+
+.controls-side input {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.known-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.face-card {
+  background-color: #2a2a2a;
+  padding: 0.6rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 100px;
+}
+
+.face-card img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.face-card p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.face-card button {
+  background-color: #ff4d4f;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.face-card button:hover {
+  background-color: #d9363e;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .demo-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .controls-side {
+    max-width: 90vw;
+    width: 100%;
+  }
+
+  .webcam-feed {
+    width: 100%;
+  }
+
+  .face-card {
+    width: 100px;
+  }
+}

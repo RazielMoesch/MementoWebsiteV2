@@ -1,0 +1,97 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* Navbar container */
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #1c1c1e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
+}
+
+
+
+/* Links */
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #00d1b2;
+  border-bottom: 2px solid #00d1b2;
+}
+
+/* Hamburger (hidden on desktop) */
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #1c1c1e;
+    gap: 1rem;
+    padding: 1rem 0;
+    text-align: center;
+    display: none;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+}
+
+
+/* Title */
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: hsl(0, 0%, 100%);
+}
+
+.navbar-title:hover{
+  color: #00d1b2;
+  
+}

@@ -1,0 +1,89 @@
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1c1c1e;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Homepage container centered and spaced for fixed navbar */
+.homepage-container {
+  padding-top: 100px; /* space for navbar */
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers children horizontally */
+  background-color: #1c1c1e;
+}
+
+/* Main page title */
+.homepage-container h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 5rem;
+  margin-bottom: 6rem;
+  text-align: center;
+  word-wrap: break-word;
+  color: hsl(0, 0%, 100%);
+}
+
+/* Sections with width 80% and max width */
+.homepage-section {
+  width: 80%;
+  max-width: 900px; /* limit max width on large screens */
+  background-color: #2c2c2e;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: transform 0.2s ease;
+}
+
+.homepage-section:hover {
+  transform: translateY(-3px);
+}
+
+/* Section headings */
+.homepage-section h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #00d1b2;
+}
+
+/* Section paragraphs */
+.homepage-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+/* Responsive adjustments for smaller devices */
+@media (max-width: 768px) {
+  .homepage-container h1 {
+    font-size: 2rem;
+  }
+
+  .homepage-section {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .homepage-section h3 {
+    font-size: 1.5rem;
+  }
+
+  .homepage-section p {
+    font-size: 1rem;
+  }
+}
