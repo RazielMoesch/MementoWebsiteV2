@@ -37,7 +37,6 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
     const faceCtx = faceCanvas.getContext('2d');
     faceCtx.drawImage(sourceCanvas, x1, y1, w, h, 0, 0, MODEL_W, MODEL_H);
     const croppedImageData = faceCtx.getImageData(0, 0, MODEL_W, MODEL_H);
-    // Convert cropped face to JPEG for storage
     const croppedImage = faceCanvas.toDataURL('image/jpeg');
     return { croppedImageData, croppedImage };
   };
@@ -92,21 +91,20 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, MODEL_W, MODEL_H);
 
-        const results = await Promise.all(
-          detections.map(async (box) => {
-            const { croppedImageData } = await cropFace(canvas, box);
-            try {
-              const match = await recognizeFace(croppedImageData, knownEmbeddings.filter((e) => e.embedding !== null));
-              return { ...box, name: match.name, similarity: match.similarity };
-            } catch (err) {
-              if (!recognitionFailedAlerted) {
-                alert('Face recognition failed. Detection will continue without recognition.');
-                setRecognitionFailedAlerted(true);
-              }
-              return { ...box, name: 'Unknown', similarity: 0 };
+        const results = [];
+        for (const box of detections) {
+          const { croppedImageData } = await cropFace(canvas, box);
+          try {
+            const match = await recognizeFace(croppedImageData, knownEmbeddings.filter((e) => e.embedding !== null));
+            results.push({ ...box, name: match.name, similarity: match.similarity });
+          } catch (err) {
+            if (!recognitionFailedAlerted) {
+              alert('Face recognition failed. Detection will continue without recognition.');
+              setRecognitionFailedAlerted(true);
             }
-          })
-        );
+            results.push({ ...box, name: 'Unknown', similarity: 0 });
+          }
+        }
 
         setFoundFaces(results);
         drawDetections(results, video);

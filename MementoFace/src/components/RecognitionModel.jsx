@@ -4,6 +4,7 @@ import * as ort from 'onnxruntime-web';
 ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/';
 
 let session = null;
+let isRunning = false; // Lock to prevent concurrent inference
 
 const MODEL_W = 256;
 const MODEL_H = 256;
@@ -16,7 +17,6 @@ const MODEL_H = 256;
 export async function initRecognitionSession() {
   if (!session) {
     try {
-      // Verify model file accessibility
       const response = await fetch('/RecognitionModel.onnx');
       if (!response.ok) {
         throw new Error(`Model file not found or inaccessible: ${response.statusText}`);
@@ -86,11 +86,16 @@ export function cosineSimilarity(embedding1, embedding2) {
  * @returns {Promise<Float32Array>} The 384-dimensional embedding
  */
 export async function generateEmbedding(imageData) {
-  if (!session) await initRecognitionSession();
-  const inputTensor = preprocess(imageData);
-  const feeds = {};
-  feeds[session.inputNames[0]] = inputTensor;
+  if (isRunning) {
+    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait if another inference is running
+    return generateEmbedding(imageData); // Retry
+  }
+  isRunning = true;
   try {
+    if (!session) await initRecognitionSession();
+    const inputTensor = preprocess(imageData);
+    const feeds = {};
+    feeds[session.inputNames[0]] = inputTensor;
     const results = await session.run(feeds);
     const outputTensor = results[session.outputNames[0]];
     console.log('Embedding generated:', outputTensor.data.slice(0, 10));
@@ -103,6 +108,8 @@ export async function generateEmbedding(imageData) {
       details: err
     });
     throw err;
+  } finally {
+    isRunning = false;
   }
 }
 
