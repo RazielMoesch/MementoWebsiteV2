@@ -1,5 +1,8 @@
 import * as ort from 'onnxruntime-web';
 
+// Hyperparameters
+const DETECTION_CONFIDENCE_THRESHOLD = 0.7; // Default confidence threshold for face detection
+
 // Set the WASM files to load from the CDN
 ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/';
 
@@ -19,7 +22,7 @@ function softSigmoid(x) {
   return 1 / (1 + Math.exp(-x));
 }
 
-function decodePredictions(preds, confThresh = 0.1) {
+function decodePredictions(preds, confThresh = DETECTION_CONFIDENCE_THRESHOLD) {
   const [B, C, H, W] = [1, preds.dims[1], preds.dims[2], preds.dims[3]];
   const data = preds.data;
   const strideX = MODEL_W / W;
@@ -80,5 +83,5 @@ export async function findFaces(video) {
   feeds[session.inputNames[0]] = inputTensor;
   const results = await session.run(feeds);
   const outputTensor = results[session.outputNames[0]];
-  return decodePredictions(outputTensor, 0.1);
+  return decodePredictions(outputTensor, DETECTION_CONFIDENCE_THRESHOLD);
 }

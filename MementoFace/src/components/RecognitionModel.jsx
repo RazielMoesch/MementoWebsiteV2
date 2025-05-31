@@ -1,5 +1,8 @@
 import * as ort from 'onnxruntime-web';
 
+// Hyperparameters
+const CONFIDENCE_THRESHOLD = 0.4; // Default confidence threshold for face recognition
+
 // Configure WebAssembly paths for ONNX runtime
 ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/';
 
@@ -17,7 +20,7 @@ const MODEL_H = 256;
 export async function initRecognitionSession() {
   if (!session) {
     try {
-      const response = await fetch('/RecognitionModel.onnx');
+      const response = await fetch('/RecognitionModel2.onnx');
       if (!response.ok) {
         throw new Error(`Model file not found or inaccessible: ${response.statusText}`);
       }
@@ -117,10 +120,10 @@ export async function generateEmbedding(imageData) {
  * Recognizes a face by comparing its embedding to known embeddings.
  * @param {ImageData} imageData - Cropped face image data
  * @param {Array} knownEmbeddings - Array of known embeddings
- * @param {number} threshold - Similarity threshold (default: 0.6)
+ * @param {number} threshold - Similarity threshold (default: CONFIDENCE_THRESHOLD)
  * @returns {Promise<Object>} Best match { name, similarity }
  */
-export async function recognizeFace(imageData, knownEmbeddings, threshold = 0.6) {
+export async function recognizeFace(imageData, knownEmbeddings, threshold = CONFIDENCE_THRESHOLD) {
   try {
     const embedding = await generateEmbedding(imageData);
     let bestMatch = { name: 'Unknown', similarity: 0 };
