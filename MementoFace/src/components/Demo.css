@@ -55,6 +55,7 @@ body {
   margin-top: 0.8rem;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 1rem;
 }
 
 .btn-group button,
