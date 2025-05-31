@@ -134,7 +134,9 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
       ctx.strokeRect(x1, y1, w, h);
       ctx.fillStyle = 'red';
       ctx.font = '14px Arial';
-      const label = name === 'Unknown' ? `Unknown (${conf.toFixed(2)})` : `${name} (${conf.toFixed(2)}, ${similarity.toFixed(2)})`;
+      const label = name === 'Unknown' ? `Unknown ` : `${name} `;
+      // (${conf.toFixed(2)})
+      //  (${conf.toFixed(2)}, ${similarity.toFixed(2)})
       ctx.fillText(label, x1 + 4, y1 - 4);
     });
   };
