@@ -157,7 +157,7 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          videoConstraints={{ width: 600, height: 400, facingMode: frontCam ? 'user' : 'environment' }}
+          videoConstraints={{ width: 1080, height: 720, facingMode: frontCam ? 'user' : 'environment' }}
           style={{ width: '100%', height: '100%', borderRadius: '12px', objectFit: 'cover' }}
         />
         <canvas
