@@ -142,7 +142,7 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(detect, 1500);
+    const interval = setInterval(detect, 250);
     return () => clearInterval(interval);
   }, [detect]);
 
@@ -184,7 +184,7 @@ const Demo = ({ knownPeople, setKnownPeople }) => {
         <input type="text" placeholder="Enter name" value={newName} onChange={(e) => setNewName(e.target.value)} />
         <button onClick={handleNewPerson}>➕ Add Face</button>
 
-        <h2 style={{ marginTop: '1rem' }}>Known Faces</h2>
+        <h2 style={{ marginTop: '1rem' }}></h2>
         <div className="known-gallery">
           {knownPeople.map((person, i) => (
             <div key={i} className="face-card">
